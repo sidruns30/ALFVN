@@ -10,7 +10,7 @@ import numpy as np
 
 class cell_centered():
     # class constructor: initialize the prim and cons variables
-    def __init__(self, nx, ny, nz, ngh, xi, xf, yi, yf, zi, zf):
+    def __init__(self, nx, ny, nz, ngh, xi, xf, yi, yf, zi, zf, **kwargs):
         
         # Coordinates (do not contain ghost zones)
         self.x = np.linspace(xi, xf, nx)
@@ -30,10 +30,14 @@ class cell_centered():
         self.cons_momy = np.zeros((nx + 2*ngh, ny + 2*ngh, nz + 2*ngh))
         self.cons_momz = np.zeros((nx + 2*ngh, ny + 2*ngh, nz + 2*ngh))
         self.cons_en = np.zeros((nx + 2*ngh, ny + 2*ngh, nz + 2*ngh))
-        
+       
+        # Gas variable(s)
+        if 'gas_gamma' not in kwargs: self.gas_gamma = 5/3
+        else: self.gas_gamma = kwargs['gas_gamma']
+
 class face_centered():
     # class constructor: initialize prim and flux variables
-    def __init__(self, nx, ny, nz, ngh, xi, xf, yi, yf, zi, zf):
+    def __init__(self, nx, ny, nz, ngh, xi, xf, yi, yf, zi, zf, **kwargs):
         
         # Coordinates (do not contain ghost zones)
         self.x = np.linspace(xi + (xf - xi)/nx, xf - (xf - xi)/nx, nx - 1)
@@ -53,3 +57,7 @@ class face_centered():
         self.flux_momy = np.zeros((nx + 2*ngh - 1, ny + 2*ngh - 1, nz + 2*ngh - 1, 3))
         self.flux_momz = np.zeros((nx + 2*ngh - 1, ny + 2*ngh - 1, nz + 2*ngh - 1, 3))
         self.flux_en = np.zeros((nx + 2*ngh - 1, ny + 2*ngh - 1, nz + 2*ngh - 1, 3))
+
+        # Gas variable(s)
+        if 'gas_gamma' not in kwargs: self.gas_gamma = 5/3
+        else: self.gas_gamma = kwargs['gas_gamma']
