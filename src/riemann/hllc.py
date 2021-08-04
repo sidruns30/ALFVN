@@ -3,7 +3,7 @@ ALFVN: Adaptive Lightweight Finite Volume Numerics
 *****************hllc.py********************
 Solve the Riemann problem using the HLLC solver
 Takes the primitives at the face centers and solves
-for conservatives
+for conservatives.
 """
 
 from src.baige import face_centered as FC
